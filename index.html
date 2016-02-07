@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Algo Project</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- jQuery -->
+	<script src="libs/jquery/jquery-2.2.0.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- vis -->
+	<link rel="stylesheet" type="text/css" href="libs/vis/vis.min.css">
+	<script src="libs/vis/vis.min.js"></script>
+
+	<!-- own include -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="scripts.js"></script>
+</head>
+<body lang="en" role="document" onresize="graph.redraw();" onload="drawVisualization()">
+<div class="container theme-showcase" role="main">
+
+	<div class="jumbotron">
+		<h1>Algo Project</h1>
+		<div class=".col-md-6">
+			<div id="visualization"></div>
+		</div>
+		<div class=".col-md-6">
+		</div>
+	</div>
+
+</div>
+
+<script src="diagrams.js"></script>
+
+</body>
+</html>
