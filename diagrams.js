@@ -15,7 +15,7 @@ for (var x = 0; x < axisMax; x+=axisStep) {
 // specify options
 var options = {
     width:  '100%',
-    height: 'auto',
+    height: '100%',
     style: 'surface',
     showPerspective: true,
     showGrid: true,
