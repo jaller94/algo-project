@@ -19,7 +19,6 @@
 
 	<!-- own include -->
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="scripts.js"></script>
 </head>
 <body lang="en" role="document" onresize="graph3d.redraw();">
 <div class="container theme-showcase" role="main">
@@ -27,10 +26,12 @@
 	<div class="jumbotron">
 		<h1>Algo Project</h1>
 		<div class=".col-md-6">
-		   <div class="embed-responsive embed-responsive-4by3">
-		      <div id="visualization" class="embed-responsive-item"></div>
-		   </div>
-		</div>
+			<div class="embed-responsive embed-responsive-4by3">
+				<div id="visualization" class="embed-responsive-item"></div>
+			</div>
+			<div class="embed-responsive embed-responsive-4by3">
+				<canvas id="canvas1" width="500" height="500" class="embed-responsive-item"></div>
+			</div>
 		<div class=".col-md-6">
 		</div>
 	</div>
@@ -38,6 +39,7 @@
 </div>
 
 <script src="diagrams.js"></script>
+<script src="scripts.js"></script>
 
 </body>
 </html>
