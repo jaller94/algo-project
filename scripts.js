@@ -11,17 +11,22 @@ function grid( ctx ) {
 	}
 }
 
-function drawFirefly(x, y) {
+function drawFirefly( x, y ) {
+	console.log("drawFirefly");
 	ctx.fillStyle = "rgba(255,0,0,1)";
 	ctx.fillRect( x-1, y-1, 3, 3 );
+}
+
+function drawFireflies( fireflies ) {
+	console.log("drawFireflies");
+	fireflies.forEach( function(fly) { 
+		drawFirefly(fly["x"], fly["y"]);
+	} );
 }
 
 var c = document.getElementById( "canvas1" );
 var ctx = c.getContext( "2d" );
 grid( ctx );
 
-for (i = 0; i < 40 ; i++) {
-	x = (Math.random() * 500);
-	y = (Math.random() * 500);
-	drawFirefly(x, y);
-}
+var fireflies = generateFireflies(40, 0, 0, 500, 500);
+drawFireflies( fireflies );
