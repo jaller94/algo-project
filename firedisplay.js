@@ -1,3 +1,5 @@
+"use strict";
+
 class FireDisplay {
 	constructor( canvas ) {
 		this.c = canvas;

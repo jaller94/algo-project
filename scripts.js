@@ -1,10 +1,16 @@
+"use strict";
+
+function drawOnCanvas() {
+	firedisplay.clear();
+	firedisplay.grid();
+	firedisplay.drawFireflies( fireflies );
+}
+
 function nextStep() {
 	//console.log("nextStep");
 	
 	levy2D( func, fireflies );
-	firedisplay.clear();
-	firedisplay.grid();
-	firedisplay.drawFireflies( fireflies );
+	drawOnCanvas();
 	
 	document.getElementById("mytext").value = JSON.stringify(fireflies);
 }

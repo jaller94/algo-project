@@ -1,8 +1,10 @@
+"use strict";
+
 function generateFireflies(amount, x1, y1, x2, y2) {
 	var fireflies = [];
-	for (i = 0; i < amount; i++) {
-		x = (Math.random() * (x2-x1)) + x1;
-		y = (Math.random() * (y2-y1)) + y1;
+	for (var i = 0; i < amount; i++) {
+		var x = (Math.random() * (x2-x1)) + x1;
+		var y = (Math.random() * (y2-y1)) + y1;
 		var fly = {"x": x, "y": y};
 		fireflies.push( fly );
 		console.log("pushed Fly");
