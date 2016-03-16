@@ -28,7 +28,7 @@ class FireDisplay {
 		} );
 	}
 
-	grid( ) {
+	drawGrid( ) {
 		for (var i = 0; i <= 5; i++) {
 			// vertical lines
 			this.ctx.moveTo(i * 100,   0);
