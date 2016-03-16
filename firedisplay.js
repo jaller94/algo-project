@@ -29,14 +29,16 @@ class FireDisplay {
 	}
 
 	drawGrid( ) {
-		for (var i = 0; i <= 5; i++) {
+		var x_grid = 10;
+		var x_size = this.c.width / x_grid;
+		for (var i = 0; i <= x_grid; i++) {
 			// vertical lines
-			this.ctx.moveTo(i * 100,   0);
-			this.ctx.lineTo(i * 100, 500);
+			this.ctx.moveTo(i * x_size, 0);
+			this.ctx.lineTo(i * x_size, x_size * x_grid);
 			this.ctx.stroke();
 			// horizontal lines
-			this.ctx.moveTo(  0, i * 100);
-			this.ctx.lineTo(500, i * 100);
+			this.ctx.moveTo(  0, i * x_size);
+			this.ctx.lineTo(x_size * x_grid, i * x_size);
 			this.ctx.stroke();
 		}
 	}
