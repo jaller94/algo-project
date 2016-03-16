@@ -1,32 +1,22 @@
-function grid( ctx ) {
-	for (i = 0; i <= 5; i++) {
-		// vertical lines
-		ctx.moveTo(i * 100,   0);
-		ctx.lineTo(i * 100, 500);
-		ctx.stroke();
-		// horizontal lines
-		ctx.moveTo(  0, i * 100);
-		ctx.lineTo(500, i * 100);
-		ctx.stroke();
-	}
+function nextStep() {
+	//console.log("nextStep");
+	
+	levy2D( func, fireflies );
+	firedisplay.clear();
+	firedisplay.grid();
+	firedisplay.drawFireflies( fireflies );
+	
+	document.getElementById("mytext").value = JSON.stringify(fireflies);
 }
 
-function drawFirefly( x, y ) {
-	console.log("drawFirefly");
-	ctx.fillStyle = "rgba(255,0,0,1)";
-	ctx.fillRect( x-1, y-1, 3, 3 );
+var func = function(x, y) {
+	return (Math.sin(x) * Math.cos(y) * 1);
 }
 
-function drawFireflies( fireflies ) {
-	console.log("drawFireflies");
-	fireflies.forEach( function(fly) { 
-		drawFirefly(fly["x"], fly["y"]);
-	} );
-}
+var fireflies = generateFireflies(10, -2.5, -2.5, 2.5, 2.5);
 
 var c = document.getElementById( "canvas1" );
-var ctx = c.getContext( "2d" );
-grid( ctx );
+var firedisplay = new FireDisplay( c );
 
-var fireflies = generateFireflies(40, 0, 0, 500, 500);
-drawFireflies( fireflies );
+firedisplay.grid( );
+firedisplay.drawFireflies( fireflies );
