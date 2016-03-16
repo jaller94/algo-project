@@ -12,7 +12,7 @@ function nextStep() {
 	levy2D( func, fireflies );
 	drawOnCanvas();
 	
-	document.getElementById("mytext").value = JSON.stringify(fireflies);
+	//document.getElementById("mytext1").value = JSON.stringify(fireflies);
 }
 
 var func = function(x, y) {
@@ -26,3 +26,11 @@ var firedisplay = new FireDisplay( c );
 
 firedisplay.grid( );
 firedisplay.drawFireflies( fireflies );
+
+var fireflies2 = generateFireflies(10, -2.5, -2.5, 2.5, 2.5);
+var c2 = document.getElementById( "canvas2" );
+var firedisplay2 = new FireDisplay( c2 );
+
+firedisplay2.grid( );
+firedisplay2.drawFireflies( fireflies );
+

@@ -11,7 +11,7 @@ class FireDisplay {
 	}
 
 	drawFirefly( x, y ) {
-		console.log("drawFirefly");
+		//console.log("drawFirefly");
 		var screen_x = (x+2.5) * 100;
 		var screen_y = (y+2.5) * 100;
 		
@@ -20,7 +20,7 @@ class FireDisplay {
 	}
 
 	drawFireflies( fireflies ) {
-		console.log("drawFireflies");
+		//console.log("drawFireflies");
 		var self = this;
 		
 		fireflies.forEach( function(fly) { 
