@@ -12,6 +12,7 @@ class FireSimulation {
 
 	reset( ) {
 		this.fireflies = generateFireflies(10, -2.5, -2.5, 2.5, 2.5);
+		this.draw();
 	}
 
 	act( ) {
@@ -63,7 +64,5 @@ class FireSimulation {
 
 		button_reset[0].addEventListener("click", sim.reset.bind(sim));
 		button_next[0].addEventListener("click", sim.act.bind(sim));
-
-		canvas.simulation.draw();
 	}
 }
