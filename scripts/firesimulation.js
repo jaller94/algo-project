@@ -12,11 +12,14 @@ class FireSimulation {
 
 	reset( ) {
 		this.fireflies = generateFireflies(10, -2.5, -2.5, 2.5, 2.5);
+		console.log( this.fireflies );
 		this.draw();
 	}
 
 	act( ) {
-		levy2D( this.func, this.fireflies );
+		console.log( this.fireflies );
+		this.fireflies = levy2D( this.func, this.fireflies );
+		console.log( this.fireflies );
 		this.draw();
 	}
 	
@@ -41,7 +44,7 @@ class FireSimulation {
 		var canvas_id = 'canvas' + $('canvas').length;
 		var canvas = $('<canvas></canvas>', {
 			id: canvas_id,
-			class: 'embed-responsive-item'
+			//class: 'embed-responsive-item'
 		}).attr({
 			width: '500',
 			height: '500'

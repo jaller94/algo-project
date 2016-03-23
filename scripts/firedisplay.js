@@ -31,15 +31,15 @@ class FireDisplay {
 	drawGrid( ) {
 		var x_grid = 10;
 		var x_size = this.c.width / x_grid;
+		this.ctx.beginPath();
 		for (var i = 0; i <= x_grid; i++) {
 			// vertical lines
 			this.ctx.moveTo(i * x_size, 0);
 			this.ctx.lineTo(i * x_size, x_size * x_grid);
-			this.ctx.stroke();
 			// horizontal lines
 			this.ctx.moveTo(  0, i * x_size);
 			this.ctx.lineTo(x_size * x_grid, i * x_size);
-			this.ctx.stroke();
 		}
+		this.ctx.stroke();
 	}
 }
