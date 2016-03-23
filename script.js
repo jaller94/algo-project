@@ -7,6 +7,6 @@ var func = function(x, y) {
 }
 
 FireSimulation.insertIntoHTML( $("#simulations") );
-FireSimulation.insertIntoHTML( $("#simulations") );
-FireSimulation.insertIntoHTML( $("#simulations") );
+//FireSimulation.insertIntoHTML( $("#simulations") );
+//FireSimulation.insertIntoHTML( $("#simulations") );
 

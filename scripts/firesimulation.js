@@ -6,25 +6,24 @@ class FireSimulation {
 		this.canvas = canvas;
 		console.log(canvas);
 		this.display = new FireDisplay( this.canvas );
+		this.heightmap = this.display.generateHeightMap( this.func, 0, 2 );
 		
 		this.reset();
 	}
 
 	reset( ) {
 		this.fireflies = generateFireflies(10, -2.5, -2.5, 2.5, 2.5);
-		console.log( this.fireflies );
 		this.draw();
 	}
 
 	act( ) {
-		console.log( this.fireflies );
 		this.fireflies = levy2D( this.func, this.fireflies );
-		console.log( this.fireflies );
 		this.draw();
 	}
 	
 	draw( ) {
 		this.display.clear( );
+		this.display.drawImage( this.heightmap );
 		this.display.drawGrid( );
 		this.display.drawFireflies( this.fireflies );
 	}

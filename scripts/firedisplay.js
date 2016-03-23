@@ -4,6 +4,10 @@ class FireDisplay {
 	constructor( canvas ) {
 		this.c = canvas;
 		this.ctx = canvas.getContext("2d");
+		this.x1 = -2.5;
+		this.y1 = -2.5;
+		this.x2 = 2.5;
+		this.y2 = 2.5;
 	}
 	
 	clear( ) {
@@ -42,4 +46,33 @@ class FireDisplay {
 		}
 		this.ctx.stroke();
 	}
+	
+	generateHeightMap( func, minval, maxval ) {
+		var imageData = this.ctx.getImageData(0,0,this.c.width, this.c.height);
+		var data = imageData.data;
+		for (var i = 0; i < data.length; i += 4) {
+			var x = (i/4) % this.c.width;
+			var y = Math.floor((i/4) / this.c.width);
+			x = (x/500) * 5 - 2.5;
+			y = (y/500) * 5 - 2.5;
+
+			var avg = (func(x,y) + minval) / (maxval - minval);
+
+			//console.log(x,y,func(x,y),avg);
+
+			avg = avg * 145 + 110;
+
+			data[i]	  = avg; // red
+			data[i + 1] = avg; // green
+			data[i + 2] = avg; // blue
+			data[i + 3] = 255; // blue
+		}
+		this.ctx.putImageData(imageData, 0, 0);
+		return imageData;
+	}
+	
+	drawImage( image ) {
+		this.ctx.putImageData(image, 0, 0);
+	}
+	
 }
