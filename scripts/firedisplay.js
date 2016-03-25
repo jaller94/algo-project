@@ -27,7 +27,7 @@ class FireDisplay {
 		//console.log("drawFireflies");
 		var self = this;
 		
-		fireflies.forEach( function(fly) { 
+		fireflies.flies.forEach( function(fly) { 
 			self.drawFirefly(fly["x"], fly["y"]);
 		} );
 	}

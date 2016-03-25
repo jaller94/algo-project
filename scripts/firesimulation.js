@@ -13,12 +13,13 @@ class FireSimulation {
 	}
 
 	reset( ) {
-		this.fireflies = generateFireflies(10, -2.5, -2.5, 2.5, 2.5);
+		this.fireflies = new Fireflies(10, -2.5, -2.5, 2.5, 2.5);
+		this.fireflies.setRandomness(0.1);
 		this.draw();
 	}
 
 	act( ) {
-		this.fireflies = levy2D( this.func, this.fireflies );
+		this.fireflies = this.fireflies.levy2D( this.func );
 		this.draw();
 	}
 
