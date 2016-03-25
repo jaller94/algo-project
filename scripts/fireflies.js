@@ -10,7 +10,8 @@ function distanceApprox(p1,p2){
 class Fireflies {
 	constructor(amount, x1, y1, x2, y2) {
 		// set defaults
-		this.randomness = 0;
+		this.randomness = 0; // max possible random delta each iteration
+		this.iteration = 0;  // # of iterations
 
 		// create flies
 		this.flies = [];
@@ -49,6 +50,7 @@ class Fireflies {
 		});
 
 		var copies = this.copyFireflies();
+		copies.iteration = copies.iteration + 1;
 
 		//fireflies.forEach( function(fly) {
 			//fireflies.forEach( function(other) {
