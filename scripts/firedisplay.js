@@ -46,6 +46,10 @@ class FireDisplay {
 		}
 		this.ctx.stroke();
 	}
+
+	drawImage( image ) {
+		this.ctx.putImageData(image, 0, 0);
+	}
 	
 	generateHeightMap( func, minval, maxval ) {
 		var imageData = this.ctx.getImageData(0,0,this.c.width, this.c.height);
@@ -70,27 +74,30 @@ class FireDisplay {
 		this.ctx.putImageData(imageData, 0, 0);
 		return imageData;
 	}
-	
-	drawImage( image ) {
-		this.ctx.putImageData(image, 0, 0);
+
+	setViewport( x1, y1, x2, y2 ) {
+		this.x1 = x1;
+		this.x2 = x2;
+		this.y1 = y1;
+		this.y2 = y2;
 	}
 
-	XtoCanvasX(x) {
+	XtoCanvasX( x ) {
 		var all = this.x2 - this.x1;
 		return ((x - this.x1) / all) * this.c.width;
 	}
 
-	YtoCanvasY(y) {
+	YtoCanvasY( y ) {
 		var all = this.y2 - this.y1;
 		return ((y - this.y1) / all) * this.c.height;
 	}
 
-	CanvasXtoX(x) {
+	CanvasXtoX( x ) {
 		var all = this.x2 - this.x1;
 		return (x/this.c.width) * all + this.x1;
 	}
 
-	CanvasYtoY(y) {
+	CanvasYtoY( y ) {
 		var all = this.y2 - this.y1;
 		return (y/this.c.height) * all + this.y1;
 	}

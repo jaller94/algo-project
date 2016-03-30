@@ -21,6 +21,7 @@ class FireSimulation {
 	reset( ) {
 		this.fireflies = new Fireflies(4, -2.5, -2.5, 2.5, 2.5);
 		this.fireflies.setRandomness(0.05);
+		this.display.setViewport(-2.5, -2.5, 2.5, 2.5);
 		this.draw();
 	}
 
@@ -53,11 +54,14 @@ class FireSimulation {
 	}
 
 	static insertIntoHTML( root ) {
+		/// Create main wrappers
 		var wrapper = document.createElement('div');
 		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-6');
 		var wrapper2 = document.createElement('div');
 		$(wrapper2).addClass('col-xs-12 col-sm-6 col-sm-6');
 		var wrapper_canvas = document.createElement('div');
+
+		/// Create section wrappers
 		$(wrapper_canvas).addClass('canvas-wrapper')
 			.appendTo( $(wrapper) );
 		var wrapper_buttons = document.createElement('div');
@@ -70,6 +74,7 @@ class FireSimulation {
 		$(wrapper_params).addClass('form-group')
 			.appendTo( $(wrapper2) );
 
+		/// Create Canvas
 		var canvas_id = 'canvas' + $('canvas').length;
 		var canvas = $('<canvas></canvas>', {
 			id: canvas_id,
@@ -82,10 +87,13 @@ class FireSimulation {
 
 		canvas.appendTo( $(wrapper_canvas) );
 
+		/// Create playback buttons
 		var button_reset = createButton('Reset', $(wrapper_buttons) );
 
 		var button_next = createButton('Next', $(wrapper_buttons) );
 
+		/// Layer Buttons
+		// Heightmap Layer
 		var label_heightmap = $('<label></label>')
 			.addClass('checkbox-inline')
 			.appendTo( $(wrapper_layers) );
@@ -95,17 +103,19 @@ class FireSimulation {
 
 		$(label_heightmap).append('Heightmap');
 
+		/// Insert into document
 		$(wrapper).appendTo( $(root) );
 		$(wrapper2).appendTo( $(root) );
 
+		/// Create a Firefly Simulation
 		var sim = new FireSimulation( func, canvas[0], 10 );
 		canvas.simulation = sim;
 
-		// Buttons for Playback
+		/// Buttons for Playback
 		button_reset[0].addEventListener('click', sim.reset.bind(sim));
 		button_next[0].addEventListener('click', sim.act.bind(sim));
 
-		// Checkboxes for layers
+		/// Checkboxes for layers
 		sim.checkbox_heightmap = checkbox_heightmap[0];
 		sim.checkbox_heightmap.addEventListener('change', sim.toogleHeightmap.bind(sim));
 	}
