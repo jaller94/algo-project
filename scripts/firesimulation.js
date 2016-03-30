@@ -13,8 +13,8 @@ class FireSimulation {
 	}
 
 	reset( ) {
-		this.fireflies = new Fireflies(10, -2.5, -2.5, 2.5, 2.5);
-		this.fireflies.setRandomness(0.1);
+		this.fireflies = new Fireflies(4, -2.5, -2.5, 2.5, 2.5);
+		this.fireflies.setRandomness(0.05);
 		this.draw();
 	}
 
@@ -44,7 +44,7 @@ class FireSimulation {
 
 	static insertIntoHTML( root ) {
 		var wrapper = document.createElement('div');
-		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-4');
+		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-6');
 		var wrapper_canvas = document.createElement('div');
 		$(wrapper_canvas).addClass('canvas-wrapper')
 			.appendTo( $(wrapper) );

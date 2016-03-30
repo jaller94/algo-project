@@ -7,23 +7,23 @@ var axisMin = -5;
 var axisMax = 5;
 var axisStep = (axisMax - axisMin) / steps;
 for (var x = axisMin; x < axisMax; x+=axisStep) {
-    for (var y = axisMin; y < axisMax; y+=axisStep) {
-        var value = (Math.sin(x) * Math.cos(y) * 1);
-        value += (Math.random()-0.5)/2;
-        data.add({id:counter++,x:x,y:y,z:value,style:value,group:0});
-    }
+	for (var y = axisMin; y < axisMax; y+=axisStep) {
+		var value = (Math.sin(x) * Math.cos(y) * 1);
+		//value += (Math.random()-0.5)/2;
+		data.add({id:counter++,x:x,y:y,z:value,style:value,group:0});
+	}
 }
 
 // specify options
 var options = {
-    width:  '100%',
-    height: '100%',
-    style: 'surface',
-    showPerspective: true,
-    showGrid: true,
-    showShadow: false,
-    keepAspectRatio: true,
-    verticalRatio: 0.5
+	width:  '500px',
+	height: '500px',
+	style: 'surface',
+	showPerspective: true,
+	showGrid: true,
+	showShadow: false,
+	keepAspectRatio: true,
+	verticalRatio: 0.5
 };
 
 // Instantiate our graph object.

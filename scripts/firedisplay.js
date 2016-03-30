@@ -4,10 +4,10 @@ class FireDisplay {
 	constructor( canvas ) {
 		this.c = canvas;
 		this.ctx = canvas.getContext("2d");
-		this.x1 = -2.5;
-		this.y1 = -2.5;
-		this.x2 = 2.5;
-		this.y2 = 2.5;
+		this.x1 = -5;
+		this.y1 = -5;
+		this.x2 = 5;
+		this.y2 = 5;
 	}
 	
 	clear( ) {
@@ -16,8 +16,8 @@ class FireDisplay {
 
 	drawFirefly( x, y ) {
 		//console.log("drawFirefly");
-		var screen_x = (x+2.5) * 100;
-		var screen_y = (y+2.5) * 100;
+		var screen_x = this.XtoCanvasX( x );
+		var screen_y = this.YtoCanvasY( y );
 		
 		this.ctx.fillStyle = "rgba(255,0,0,1)";
 		this.ctx.fillRect( screen_x-1, screen_y-1, 3, 3 );
@@ -53,8 +53,8 @@ class FireDisplay {
 		for (var i = 0; i < data.length; i += 4) {
 			var x = (i/4) % this.c.width;
 			var y = Math.floor((i/4) / this.c.width);
-			x = (x/500) * 5 - 2.5;
-			y = (y/500) * 5 - 2.5;
+			x = this.CanvasYtoY(x);
+			y = this.CanvasYtoY(y);
 
 			var avg = (func(x,y) + minval) / (maxval - minval);
 
@@ -74,5 +74,24 @@ class FireDisplay {
 	drawImage( image ) {
 		this.ctx.putImageData(image, 0, 0);
 	}
-	
+
+	XtoCanvasX(x) {
+		var all = this.x2 - this.x1;
+		return ((x - this.x1) / all) * this.c.width;
+	}
+
+	YtoCanvasY(y) {
+		var all = this.y2 - this.y1;
+		return ((y - this.y1) / all) * this.c.height;
+	}
+
+	CanvasXtoX(x) {
+		var all = this.x2 - this.x1;
+		return (x/this.c.width) * all + this.x1;
+	}
+
+	CanvasYtoY(y) {
+		var all = this.y2 - this.y1;
+		return (y/this.c.height) * all + this.y1;
+	}
 }

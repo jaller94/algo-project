@@ -62,7 +62,7 @@ class Fireflies {
 				if (i1 != i2) {
 					var other = this.flies[i2];
 					var distance = distanceApprox(fly, other);
-					var y = 2;
+					var y = 3;
 					var visiblelight = Math.exp(-y * distance);
 					//console.log("visiblelight: " + visiblelight);
 
@@ -70,6 +70,9 @@ class Fireflies {
 					//fly.y = fly.y + ((other.y - fly.y) * visiblelight);
 					newstate.x = fly.x + ((other.x - fly.x) * visiblelight);
 					newstate.y = fly.y + ((other.y - fly.y) * visiblelight);
+
+					var deltax = ((other.x - fly.x) * visiblelight);
+					console.log(i1 + " zog es zu " + i2 + " light:" + visiblelight*10000);
 					//if (other["intensity"] > fly["intensity"]) {
 						//fly["x"] = fly["x"] + ((other["x"] - fly["x"]) * 0.1);
 						//fly["y"] = fly["y"] + ((other["y"] - fly["y"]) * 0.1);
