@@ -1,5 +1,11 @@
 'use strict';
 
+function createButton( label, root ) {
+	return $('<button type="button">' + label + '</button>')
+		.addClass('btn btn-default')
+		.appendTo( $(root) );
+}
+
 class FireSimulation {
 	constructor( func, canvas, amount ) {
 		this.func = func;
@@ -42,18 +48,27 @@ class FireSimulation {
 		this.draw();
 	}
 
+	setScaling( ) {
+		
+	}
+
 	static insertIntoHTML( root ) {
 		var wrapper = document.createElement('div');
 		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-6');
+		var wrapper2 = document.createElement('div');
+		$(wrapper2).addClass('col-xs-12 col-sm-6 col-sm-6');
 		var wrapper_canvas = document.createElement('div');
 		$(wrapper_canvas).addClass('canvas-wrapper')
 			.appendTo( $(wrapper) );
-		var wrapper_buttons = document.createElement('div')
+		var wrapper_buttons = document.createElement('div');
 		$(wrapper_buttons).addClass('btn-group form-group')
 			.appendTo( $(wrapper) );
-		var wrapper_layers = document.createElement('div')
+		var wrapper_layers = $('<div><h3>Layers</h3></div>')
 		$(wrapper_layers).addClass('form-group')
-			.appendTo( $(wrapper) );
+			.appendTo( $(wrapper2) );
+		var wrapper_params = $('<div><h3>Parameter</h3></div>');
+		$(wrapper_params).addClass('form-group')
+			.appendTo( $(wrapper2) );
 
 		var canvas_id = 'canvas' + $('canvas').length;
 		var canvas = $('<canvas></canvas>', {
@@ -67,23 +82,21 @@ class FireSimulation {
 
 		canvas.appendTo( $(wrapper_canvas) );
 
-		var button_reset = $('<button type="button">Reset</button>')
-			.addClass('btn btn-default')
-			.appendTo( $(wrapper_buttons) );
+		var button_reset = createButton('Reset', $(wrapper_buttons) );
 
-		var button_next = $('<button type="button">Next</button>')
-			.addClass('btn btn-default')
-			.appendTo( $(wrapper_buttons) );
+		var button_next = createButton('Next', $(wrapper_buttons) );
 
-		var label_heightmap = $('<label>Heightmap</label>')
+		var label_heightmap = $('<label></label>')
 			.addClass('checkbox-inline')
 			.appendTo( $(wrapper_layers) );
 
-		var checkbox_heightmap = $('<input type="checkbox">')
-			.addClass('form-control')
+		var checkbox_heightmap = $('<input type="checkbox" value="">')
 			.appendTo( $(label_heightmap) );
 
+		$(label_heightmap).append('Heightmap');
+
 		$(wrapper).appendTo( $(root) );
+		$(wrapper2).appendTo( $(root) );
 
 		var sim = new FireSimulation( func, canvas[0], 10 );
 		canvas.simulation = sim;
