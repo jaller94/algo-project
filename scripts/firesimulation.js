@@ -19,8 +19,8 @@ class FireSimulation {
 	}
 
 	reset( ) {
-		this.fireflies = new Fireflies(30, -2.5, -2.5, 2.5, 2.5);
-		this.fireflies.setRandomness(0.01);
+		this.fireflies = new Fireflies(this.getAmount(), -2.5, -2.5, 2.5, 2.5);
+		this.fireflies.setRandomness(this.getRandomness());
 		this.display.setViewport(-2.5, -2.5, 2.5, 2.5);
 		//this.fireflies = new Fireflies(30, -5, -5, 5, 5);
 		//this.fireflies.setRandomness(0.05);
@@ -36,6 +36,14 @@ class FireSimulation {
 		this.printBest();
 	}
 
+	alertBest( ) {
+		var best = this.fireflies.getBest( this.func );
+		var x = best.x.toFixed(3);
+		var y = best.y.toFixed(3);
+		var value = best['value'].toFixed(3);
+		alert( 'x: '+x+'; y: '+y+'; f(): '+value );
+	}
+
 	draw( ) {
 		this.display.clear( );
 		if (this.layerheightmap) {
@@ -43,6 +51,27 @@ class FireSimulation {
 		}
 		this.display.drawGrid( );
 		this.display.drawFireflies( this.fireflies );
+	}
+
+	getAmount( ) {
+		if (this.input_amount) {
+			return this.input_amount.value;
+		}
+		return 40;
+	}
+
+	getAbsorb( ) {
+		if (this.input_absorb) {
+			return this.input_absorb.value;
+		}
+		return 0;
+	}
+	
+	getRandomness( ) {
+		if (this.input_randomness) {
+			return this.input_randomness.value;
+		}
+		return 0.01;
 	}
 
 	printBest( ) {
@@ -69,7 +98,7 @@ class FireSimulation {
 		var wrapper = document.createElement('div');
 		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-6');
 		var wrapper2 = document.createElement('div');
-		$(wrapper2).addClass('col-xs-12 col-sm-6 col-sm-6');
+		$(wrapper2).addClass('col-xs-6 col-sm-3 col-sm-3');
 		var wrapper_canvas = document.createElement('div');
 
 		/// Create section wrappers
@@ -81,9 +110,20 @@ class FireSimulation {
 		var wrapper_layers = $('<div><h3>Layers</h3></div>')
 		$(wrapper_layers).addClass('form-group')
 			.appendTo( $(wrapper2) );
-		var wrapper_params = $('<div><h3>Parameter</h3></div>');
+		var wrapper_params = $('<div><h3>Initialisation</h3></div>');
 		$(wrapper_params).addClass('form-group')
 			.appendTo( $(wrapper2) );
+
+		var wrapper_amount = $('<div></div>');
+		$(wrapper_amount).addClass('form-group')
+			.appendTo( $(wrapper2) );
+		$('<label for="amount"># of fireflies:</label>').appendTo( $(wrapper_amount) );
+		$('<input type="text" class="form-control" id="amount">').appendTo( $(wrapper_amount) );
+		var wrapper_absorb = $('<div></div>');
+		$(wrapper_absorb).addClass('form-group')
+			.appendTo( $(wrapper2) );
+		$('<label for="absorb">Absorption coefficient:</label>').appendTo( $(wrapper_absorb) );
+		$('<input type="text" class="form-control" id="absorb">').appendTo( $(wrapper_absorb) );
 
 		/// Create Canvas
 		var canvas_id = 'canvas' + $('canvas').length;
@@ -103,7 +143,7 @@ class FireSimulation {
 
 		var button_next = createButton('Next', $(wrapper_buttons) );
 		
-		var button_best = createButton('Print Best', $(wrapper_buttons) );
+		var button_best = createButton('Alert Best', $(wrapper_buttons) );
 
 		/// Layer Buttons
 		// Heightmap Layer
@@ -127,7 +167,7 @@ class FireSimulation {
 		/// Buttons for Playback
 		button_reset.addEventListener('click', sim.reset.bind(sim));
 		button_next.addEventListener('click', sim.act.bind(sim));
-		button_best.addEventListener('click', sim.printBest.bind(sim));
+		button_best.addEventListener('click', sim.alertBest.bind(sim));
 
 		/// Checkboxes for layers
 		sim.checkbox_heightmap = checkbox_heightmap[0];

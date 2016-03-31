@@ -115,6 +115,6 @@ class Fireflies {
 				best = intensity;
 			}
 		});
-		return {'x': x, 'y': y, 'best': best};
+		return {'x': x, 'y': y, 'value': best};
 	}
 }
