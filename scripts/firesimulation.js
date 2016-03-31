@@ -22,12 +22,16 @@ class FireSimulation {
 		this.fireflies = new Fireflies(30, -2.5, -2.5, 2.5, 2.5);
 		this.fireflies.setRandomness(0.01);
 		this.display.setViewport(-2.5, -2.5, 2.5, 2.5);
+		//this.fireflies = new Fireflies(30, -5, -5, 5, 5);
+		//this.fireflies.setRandomness(0.05);
+		//this.display.setViewport(-6, -6, 6, 6);
+		this.y = 2;
 		this.heightmap = this.display.generateHeightMap( this.func, 0, 3 );
 		this.draw();
 	}
 
 	act( ) {
-		this.fireflies = this.fireflies.levy2D( this.func );
+		this.fireflies = this.fireflies.levy2D( this.func, this.y );
 		this.draw();
 		this.printBest();
 	}

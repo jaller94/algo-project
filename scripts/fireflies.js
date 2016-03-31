@@ -44,7 +44,7 @@ class Fireflies {
 		this.randomness = randomness;
 	}
 
-	levy2D(f) {
+	levy2D(f, y) {
 		this.flies.forEach( function(fly) {
 			fly.intensity = f(fly.x, fly.y);
 		});
@@ -59,10 +59,9 @@ class Fireflies {
 			var fly = this.flies[i1];
 			var newstate = copies.flies[i1];
 			for (var i2 = 0; i2 < this.flies.length; i2++) {
-				if (i1 != i2) {
-					var other = this.flies[i2];
+				var other = this.flies[i2];
+				if (other.intensity > fly.intensity) {
 					var distance = distanceApprox(fly, other);
-					var y = 2;
 					//var itensity = fly.intensity / Math.pow(r,2);
 					var visiblelight = fly.intensity * Math.exp(-y * distance);
 					//console.log("visiblelight: " + visiblelight);
@@ -74,10 +73,6 @@ class Fireflies {
 
 					var deltax = ((other.x - fly.x) * visiblelight);
 					//console.log(i1 + " zog es zu " + i2 + " light:" + visiblelight*10000);
-					//if (other["intensity"] > fly["intensity"]) {
-						//fly["x"] = fly["x"] + ((other["x"] - fly["x"]) * 0.1);
-						//fly["y"] = fly["y"] + ((other["y"] - fly["y"]) * 0.1);
-					//}
 				}
 			}
 			var randomx = (Math.random() * this.randomness*2) - this.randomness;
