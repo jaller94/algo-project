@@ -19,7 +19,7 @@ class FireDisplay {
 		var screen_x = this.XtoCanvasX( x );
 		var screen_y = this.YtoCanvasY( y );
 		
-		this.ctx.fillStyle = "rgba(255,0,0,1)";
+		this.ctx.fillStyle = "rgba(255,0,255,1)";
 		this.ctx.fillRect( screen_x-1, screen_y-1, 3, 3 );
 	}
 
@@ -64,12 +64,12 @@ class FireDisplay {
 
 			//console.log(x,y,func(x,y),avg);
 
-			avg = avg * 145 + 110;
+			var color = this.toRGBGradient(avg);
 
-			data[i]	  = avg; // red
-			data[i + 1] = avg; // green
-			data[i + 2] = avg; // blue
-			data[i + 3] = 255; // blue
+			data[i]	    = color[0]; // red
+			data[i + 1] = color[1]; // green
+			data[i + 2] = color[2]; // blue
+			data[i + 3] = 255; // alpha
 		}
 		this.ctx.putImageData(imageData, 0, 0);
 		return imageData;
@@ -80,6 +80,37 @@ class FireDisplay {
 		this.x2 = x2;
 		this.y1 = y1;
 		this.y2 = y2;
+	}
+
+	toBWGradient(a) {
+		var a = a * 145 + 110;
+		return [a, a, a];
+	}
+
+	toRGBGradient(a) {
+		if (a < 0.25) {
+			//blue to cyan
+			var g = (a*4*255);
+			return [0, g, 255];
+			
+		} else if (a < 0.5) {
+			//cyan to green
+			a = a - 0.25;
+			var b = 255-(a*4*255);
+			return [0, 255, b];
+
+		} else if (a < 0.75) {		
+			//green to yellow
+			a = a - 0.5;
+			var r = (a*4*255);
+			return [r, 255, 0];
+
+		} else {		
+			//yellow to red
+			a = a - 0.75;
+			var g = 255-(a*4*255);
+			return [255, g, 0];
+		}
 	}
 
 	XtoCanvasX( x ) {

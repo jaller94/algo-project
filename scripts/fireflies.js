@@ -73,12 +73,13 @@ class Fireflies {
 
 					var deltax = ((other.x - fly.x) * visiblelight);
 					//console.log(i1 + " zog es zu " + i2 + " light:" + visiblelight*10000);
+				} else {
+					var randomx = (Math.random() * this.randomness*2) - this.randomness;
+					var randomy = (Math.random() * this.randomness*2) - this.randomness;
+					newstate.x = newstate.x + randomx;
+					newstate.y = newstate.y + randomy;
 				}
 			}
-			var randomx = (Math.random() * this.randomness*2) - this.randomness;
-			var randomy = (Math.random() * this.randomness*2) - this.randomness;
-			newstate.x = newstate.x + randomx;
-			newstate.y = newstate.y + randomy;
 		}
 
 		return copies;
