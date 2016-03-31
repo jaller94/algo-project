@@ -1,9 +1,10 @@
 'use strict';
 
 function createButton( label, root ) {
-	return $('<button type="button">' + label + '</button>')
+	var btn = $('<button type="button">' + label + '</button>')
 		.addClass('btn btn-default')
 		.appendTo( $(root) );
+	return btn[0];
 }
 
 class FireSimulation {
@@ -12,22 +13,23 @@ class FireSimulation {
 		this.canvas = canvas;
 		console.log(canvas);
 		this.display = new FireDisplay( this.canvas );
-		this.heightmap = this.display.generateHeightMap( this.func, 0, 2 );
 		this.layerheightmap = false;
 		
 		this.reset();
 	}
 
 	reset( ) {
-		this.fireflies = new Fireflies(4, -2.5, -2.5, 2.5, 2.5);
-		this.fireflies.setRandomness(0.05);
+		this.fireflies = new Fireflies(30, -2.5, -2.5, 2.5, 2.5);
+		this.fireflies.setRandomness(0.01);
 		this.display.setViewport(-2.5, -2.5, 2.5, 2.5);
+		this.heightmap = this.display.generateHeightMap( this.func, 0, 3 );
 		this.draw();
 	}
 
 	act( ) {
 		this.fireflies = this.fireflies.levy2D( this.func );
 		this.draw();
+		this.printBest();
 	}
 
 	draw( ) {
@@ -37,6 +39,11 @@ class FireSimulation {
 		}
 		this.display.drawGrid( );
 		this.display.drawFireflies( this.fireflies );
+	}
+
+	printBest( ) {
+		var best = this.fireflies.getBest( this.func );
+		console.log( best );
 	}
 
 	toogleHeightmap( ) {
@@ -91,6 +98,8 @@ class FireSimulation {
 		var button_reset = createButton('Reset', $(wrapper_buttons) );
 
 		var button_next = createButton('Next', $(wrapper_buttons) );
+		
+		var button_best = createButton('Print Best', $(wrapper_buttons) );
 
 		/// Layer Buttons
 		// Heightmap Layer
@@ -112,8 +121,9 @@ class FireSimulation {
 		canvas.simulation = sim;
 
 		/// Buttons for Playback
-		button_reset[0].addEventListener('click', sim.reset.bind(sim));
-		button_next[0].addEventListener('click', sim.act.bind(sim));
+		button_reset.addEventListener('click', sim.reset.bind(sim));
+		button_next.addEventListener('click', sim.act.bind(sim));
+		button_best.addEventListener('click', sim.printBest.bind(sim));
 
 		/// Checkboxes for layers
 		sim.checkbox_heightmap = checkbox_heightmap[0];

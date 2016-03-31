@@ -62,8 +62,9 @@ class Fireflies {
 				if (i1 != i2) {
 					var other = this.flies[i2];
 					var distance = distanceApprox(fly, other);
-					var y = 3;
-					var visiblelight = Math.exp(-y * distance);
+					var y = 2;
+					//var itensity = fly.intensity / Math.pow(r,2);
+					var visiblelight = fly.intensity * Math.exp(-y * distance);
 					//console.log("visiblelight: " + visiblelight);
 
 					//fly.x = fly.x + ((other.x - fly.x) * visiblelight);
@@ -72,7 +73,7 @@ class Fireflies {
 					newstate.y = fly.y + ((other.y - fly.y) * visiblelight);
 
 					var deltax = ((other.x - fly.x) * visiblelight);
-					console.log(i1 + " zog es zu " + i2 + " light:" + visiblelight*10000);
+					//console.log(i1 + " zog es zu " + i2 + " light:" + visiblelight*10000);
 					//if (other["intensity"] > fly["intensity"]) {
 						//fly["x"] = fly["x"] + ((other["x"] - fly["x"]) * 0.1);
 						//fly["y"] = fly["y"] + ((other["y"] - fly["y"]) * 0.1);
@@ -105,5 +106,19 @@ class Fireflies {
 		end while
 		Postprocess results and visualization
 		*/
+	}
+
+	getBest(f) {
+		var x,y
+		var best = 0;
+		this.flies.forEach( function(fly) {
+			var intensity = f(fly.x, fly.y);
+			if (intensity > best) {
+				x = fly.x;
+				y = fly.y;
+				best = intensity;
+			}
+		});
+		return {'x': x, 'y': y, 'best': best};
 	}
 }
