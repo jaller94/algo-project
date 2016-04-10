@@ -17,6 +17,19 @@ class InterfaceManager {
 		this.display = new FireDisplay( this.canvas );
 		this.layerheightmap = false;
 		
+		this.xoffset = 0;
+		this.yoffset = 0;
+		this.zoom = 5;
+		var that = this;
+		this.canvas.onmousewheel = function (event) {
+			console.log('canvas mousewheel');
+			if (event.wheelDelta > 1) {
+				that.setZoom( this.zoom+1 );
+			} else {
+				that.setZoom( this.zoom-1 );
+			}
+		}
+		
 		this.reset();
 	}
 
@@ -91,8 +104,20 @@ class InterfaceManager {
 		}
 		this.draw();
 	}
-
-	setScaling( ) {
-		
+	
+	setOffset( x, y ) {
+		this.xoffset = x;
+		this.yoffset = y;
+	}
+	
+	setZoom( zoom ) {
+		this.zoom = zoom;
+		var x1 = -(this.zoom / 2) + this.xoffset;
+		var y1 = -(this.zoom / 2) + this.yoffset;
+		var x2 =  (this.zoom / 2) + this.xoffset;
+		var y2 =  (this.zoom / 2) + this.yoffset;
+		console.log('draw with ' + this.zoom);
+		this.display.setViewport(x1, y1, x2, y2);
+		this.draw();
 	}
 }
