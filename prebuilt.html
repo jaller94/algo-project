@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Algo Project</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- jQuery -->
+	<script src="libs/jquery/jquery-2.2.2.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- own include -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body lang="en" role="document" onload="new InterfaceManager();">
+<div class="container theme-showcase" role="main">
+
+	<header id="main_header" class="col-md-12">
+		<nav class="navbar navbar-default" role="navigation">
+		</nav>
+	</header>
+
+	<div class="jumbotron">
+	<div class="row">
+		<div class="col-xs-6 col-sm-3">
+			<div class="form-group">
+				<h2>Initialisation</h2>
+			</div>
+			<div class="form-group">
+				<label for="amount"># of fireflies</label>
+				<input type="text" class="form-control" id="amount" placeholder="try 15 to 40">
+			</div>
+			<div class="form-group">
+				<label for="absorb">Absorption coefficient</label>
+				<input type="text" class="form-control" id="absorb" placeholder="try 0.0 to 5.0">
+			</div>
+			<div class="btn-group form-group">
+				<button type="button" class="btn btn-success">Initialise!</button>
+			</div>
+		</div>
+		
+		<div class="col-xs-6 col-sm-3 pull-right">
+			<h2>Run time</h2>
+			<div class="form-group">
+				<label for="background">Background</label>
+				<select id="background" class="form-control">
+					<option value="none">No background</option>
+					<option value="color">Heightmap (colour)</option>
+					<option value="bw">Heightmap (B/W)</option>
+				</select>
+			</div>
+			<div class="form-group">
+
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<div class="canvas-wrapper">
+				<canvas id="canvas0" width="500" height="500"></canvas>
+			</div>
+			<div class="btn-group form-group">
+				<button type="button" class="btn btn-default">Reset</button>
+				<button type="button" class="btn btn-default">Next</button>
+				<button type="button" class="btn btn-default">Alert Best</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
+</div>
+
+<!--<script src="diagrams.js"></script>-->
+<script src="scripts/fireflies.js"></script>
+<script src="scripts/firedisplay.js"></script>
+<script src="scripts/interfacemanager.js"></script>
+
+</body>
+</html>

@@ -51,7 +51,11 @@ class FireDisplay {
 		this.ctx.putImageData(image, 0, 0);
 	}
 	
-	generateHeightMap( func, minval, maxval ) {
+	generateHeightMap( func, minval, maxval, gradient ) {
+		if (!gradient) {
+			gradient = FireDisplay.toBWGradient;
+		}
+
 		var imageData = this.ctx.getImageData(0,0,this.c.width, this.c.height);
 		var data = imageData.data;
 		for (var i = 0; i < data.length; i += 4) {
@@ -64,7 +68,7 @@ class FireDisplay {
 
 			//console.log(x,y,func(x,y),avg);
 
-			var color = this.toRGBGradient(avg);
+			var color = gradient(avg);
 
 			data[i]	    = color[0]; // red
 			data[i + 1] = color[1]; // green
@@ -81,13 +85,13 @@ class FireDisplay {
 		this.y1 = y1;
 		this.y2 = y2;
 	}
-
-	toBWGradient(a) {
+	
+	static toBWGradient(a) {
 		var a = a * 145 + 110;
 		return [a, a, a];
 	}
 
-	toRGBGradient(a) {
+	static toRGBGradient(a) {
 		if (a < 0.25) {
 			//blue to cyan
 			var g = (a*4*255);
