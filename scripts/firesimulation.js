@@ -14,7 +14,11 @@ class FireSimulation {
 		console.log(canvas);
 		this.display = new FireDisplay( this.canvas );
 		this.layerheightmap = false;
-		
+
+		this.xoffset = 0;
+		this.yoffset = 0;
+		this.zoom = 5;
+
 		this.reset();
 	}
 
@@ -89,8 +93,20 @@ class FireSimulation {
 		this.draw();
 	}
 
-	setScaling( ) {
-		
+	setOffset( x, y ) {
+		this.xoffset = x;
+		this.yoffset = y;
+	}
+
+	setZoom( zoom ) {
+		this.zoom = zoom;
+		var x1 = -(this.zoom / 2) + this.xoffset;
+		var y1 = -(this.zoom / 2) + this.yoffset;
+		var x2 =  (this.zoom / 2) + this.xoffset;
+		var y2 =  (this.zoom / 2) + this.yoffset;
+		console.log('draw with ' + this.zoom);
+		this.display.setViewport(x1, y1, x2, y2);
+		this.draw();
 	}
 
 	static insertIntoHTML( root ) {
@@ -142,7 +158,7 @@ class FireSimulation {
 		var button_reset = createButton('Reset', $(wrapper_buttons) );
 
 		var button_next = createButton('Next', $(wrapper_buttons) );
-		
+
 		var button_best = createButton('Alert Best', $(wrapper_buttons) );
 
 		/// Layer Buttons

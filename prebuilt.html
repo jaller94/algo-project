@@ -5,7 +5,7 @@
 	<title>Algo Project</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+
 	<!-- jQuery -->
 	<script src="libs/jquery/jquery-2.2.2.min.js"></script>
 
@@ -31,41 +31,42 @@
 				<h2>Initialisation</h2>
 			</div>
 			<div class="form-group">
-				<label for="amount"># of fireflies</label>
-				<input type="text" class="form-control" id="amount" placeholder="try 15 to 40">
-			</div>
-			<div class="form-group">
-				<label for="absorb">Absorption coefficient</label>
-				<input type="text" class="form-control" id="absorb" placeholder="try 0.0 to 5.0">
+				<label for="param_amount"># of fireflies</label>
+				<input type="number" min="0" class="form-control" id="param_amount" placeholder="try 15 to 40">
 			</div>
 			<div class="btn-group form-group">
-				<button type="button" class="btn btn-success">Initialise!</button>
+				<button id="button_initialize" type="button" class="btn btn-success">Initialise!</button>
 			</div>
 		</div>
-		
+
 		<div class="col-xs-6 col-sm-3 pull-right">
 			<h2>Run time</h2>
 			<div class="form-group">
-				<label for="background">Background</label>
-				<select id="background" class="form-control">
+				<label for="param_background">Background</label>
+				<select id="param_background" class="form-control">
 					<option value="none">No background</option>
 					<option value="color">Heightmap (colour)</option>
 					<option value="bw">Heightmap (B/W)</option>
 				</select>
 			</div>
 			<div class="form-group">
-
+				<label for="param_gamma">Absorption coefficient &gamma;</label>
+				<input type="number" step="0.1" min="0" class="form-control" id="param_gamma" disabled="disabled" placeholder="try 0.0 to 5.0">
+			</div>
+			<div class="form-group">
+				<label for="param_randomness">Randomness</label>
+				<input type="number" step="0.01" min="0" class="form-control" id="param_randomness" disabled="disabled" placeholder="try 0.0 to 0.1">
 			</div>
 		</div>
-		
+
 		<div class="col-xs-12 col-sm-6">
 			<div class="canvas-wrapper">
 				<canvas id="canvas0" width="500" height="500"></canvas>
 			</div>
 			<div class="btn-group form-group">
-				<button type="button" class="btn btn-default">Reset</button>
-				<button type="button" class="btn btn-default">Next</button>
-				<button type="button" class="btn btn-default">Alert Best</button>
+				<button id="control_reset" type="button" class="btn btn-default">Reset</button>
+				<button id="control_next" type="button" class="btn btn-default">Next</button>
+				<button id="control_best" type="button" class="btn btn-default">Alert Best</button>
 			</div>
 		</div>
 	</div>

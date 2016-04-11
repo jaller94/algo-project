@@ -16,20 +16,8 @@ class InterfaceManager {
 		console.log( this.canvas );
 		this.display = new FireDisplay( this.canvas );
 		this.layerheightmap = false;
-		
-		this.xoffset = 0;
-		this.yoffset = 0;
-		this.zoom = 5;
-		var that = this;
-		this.canvas.onmousewheel = function (event) {
-			console.log('canvas mousewheel');
-			if (event.wheelDelta > 1) {
-				that.setZoom( this.zoom+1 );
-			} else {
-				that.setZoom( this.zoom-1 );
-			}
-		}
-		
+
+		this.initializeHandlers();
 		this.reset();
 	}
 
@@ -53,40 +41,61 @@ class InterfaceManager {
 	}
 
 	alertBest( ) {
-		var best = this.fireflies.getBest( this.func );
-		var x = best.x.toFixed(3);
-		var y = best.y.toFixed(3);
-		var value = best['value'].toFixed(3);
-		alert( 'x: '+x+'; y: '+y+'; f(): '+value );
+		console.log( this.fireflies.getSortet( this.func ) );
+		//var best = this.fireflies.getBest( this.func );
+		//var x = best.x.toFixed(3);
+		//var y = best.y.toFixed(3);
+		//var value = best['value'].toFixed(3);
+		//alert( 'x: '+x+'; y: '+y+'; f(): '+value );
 	}
 
 	draw( ) {
 		this.display.clear( );
-		if (this.layerheightmap) {
-			this.display.drawImage( this.heightmap );
+		switch (this.layerheightmap) {
+			case 'color':
+				this.display.drawImage( this.heightmap_color );
+				break;
+			case 'bw':
+				this.display.drawImage( this.heightmap_bw );
+				break;
 		}
 		this.display.drawGrid( );
 		this.display.drawFireflies( this.fireflies );
 	}
 
 	getAmount( ) {
-		if (this.input_amount) {
+		var input = this.input_amount;
+		if (input && input.value != '') {
 			return this.input_amount.value;
 		}
+		return this.getDefaultAmount();
+	}
+	
+	getDefaultAmount() {
 		return 40;
 	}
 
-	getAbsorb( ) {
-		if (this.input_absorb) {
-			return this.input_absorb.value;
+	getGamma( ) {
+		var input = this.input_gamma;
+		if (input && input.value != '') {
+			return this.input_gamma.value;
 		}
+		return this.getDefaultGamma;
+	}
+	
+	getDefaultGamma( ) {
 		return 0;
 	}
 	
 	getRandomness( ) {
-		if (this.input_randomness) {
+		var input = this.input_randomness;
+		if (input && input.value != '') {
 			return this.input_randomness.value;
 		}
+		return this.getDefaultRandomness();
+	}
+	
+	getDefaultRandomness( ) {
 		return 0.01;
 	}
 
@@ -95,8 +104,8 @@ class InterfaceManager {
 		console.log( best );
 	}
 
-	setBackground( ) {
-		console.log('setBackground');
+	updateBackground( ) {
+		console.log('updateBackground');
 		if (this.select_background) {
 			this.layerheightmap = this.select_background.value;
 		} else {
@@ -104,20 +113,24 @@ class InterfaceManager {
 		}
 		this.draw();
 	}
-	
-	setOffset( x, y ) {
-		this.xoffset = x;
-		this.yoffset = y;
-	}
-	
-	setZoom( zoom ) {
-		this.zoom = zoom;
-		var x1 = -(this.zoom / 2) + this.xoffset;
-		var y1 = -(this.zoom / 2) + this.yoffset;
-		var x2 =  (this.zoom / 2) + this.xoffset;
-		var y2 =  (this.zoom / 2) + this.yoffset;
-		console.log('draw with ' + this.zoom);
-		this.display.setViewport(x1, y1, x2, y2);
-		this.draw();
+
+	initializeHandlers() {
+		this.input_amount = $('#param_amount')[0];
+		this.button_initialize = $('#button_initialize')[0];
+		
+		this.input_gamma = $('#param_gamma')[0];
+		this.input_randomness = $('#param_randomness')[0];
+
+		this.select_background = $('#param_background')[0];
+		this.select_background.addEventListener('change', this.updateBackground.bind(this));
+
+		this.button_reset = $('#control_reset')[0];
+		this.button_next = $('#control_next')[0];
+		this.button_best = $('#control_best')[0];
+
+		this.button_initialize.addEventListener('click', this.reset.bind(this));
+		this.button_reset.addEventListener('click', this.reset.bind(this));
+		this.button_next.addEventListener('click', this.act.bind(this));
+		this.button_best.addEventListener('click', this.alertBest.bind(this));
 	}
 }
