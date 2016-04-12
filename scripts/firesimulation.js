@@ -35,7 +35,8 @@ class FireSimulation {
 	}
 
 	act( ) {
-		this.fireflies = this.fireflies.levy2D( this.func, this.y );
+		this.fireflies.setAbsorbtion( this.gamma );
+		this.fireflies = this.fireflies.act( this.func );
 		this.draw();
 		this.printBest();
 	}
@@ -68,14 +69,14 @@ class FireSimulation {
 		if (this.input_absorb) {
 			return this.input_absorb.value;
 		}
-		return 0;
+		return 1.0;
 	}
 	
 	getRandomness( ) {
 		if (this.input_randomness) {
 			return this.input_randomness.value;
 		}
-		return 0.01;
+		return 0.2;
 	}
 
 	printBest( ) {

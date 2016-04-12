@@ -35,7 +35,8 @@ class InterfaceManager {
 	}
 
 	act( ) {
-		this.fireflies = this.fireflies.levy2D( this.func, this.y );
+		this.fireflies.setAbsorbtion( this.getGamma() );
+		this.fireflies = this.fireflies.act( this.func );
 		this.draw();
 		this.printBest();
 	}
@@ -65,7 +66,7 @@ class InterfaceManager {
 
 	getAmount( ) {
 		var input = this.input_amount;
-		if (input && input.value != '') {
+		if (input && !isNaN(input.value) && input.value != '') {
 			return this.input_amount.value;
 		}
 		return this.getDefaultAmount();
@@ -77,26 +78,26 @@ class InterfaceManager {
 
 	getGamma( ) {
 		var input = this.input_gamma;
-		if (input && input.value != '') {
+		if (input && !isNaN(input.value) && input.value != '') {
 			return this.input_gamma.value;
 		}
-		return this.getDefaultGamma;
+		return this.getDefaultGamma();
 	}
 	
 	getDefaultGamma( ) {
-		return 0;
+		return 1.0;
 	}
 	
 	getRandomness( ) {
 		var input = this.input_randomness;
-		if (input && input.value != '') {
+		if (input && !isNaN(input.value) && input.value != '') {
 			return this.input_randomness.value;
 		}
 		return this.getDefaultRandomness();
 	}
 	
 	getDefaultRandomness( ) {
-		return 0.01;
+		return 0.2;
 	}
 
 	printBest( ) {

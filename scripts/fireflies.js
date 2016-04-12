@@ -9,8 +9,12 @@ function distanceApprox(p1,p2){
 
 class Fireflies {
 	constructor( amount, x1, y1, x2, y2 ) {
+		this.alpha = 0.2;  // Randomness 0--1 (highly random)
+		this.gamma = 1.0;  // Absorption coefficient
+		this.delta = 0.97; // Randomness reduction
+		                   // (similar to an annealing schedule)
+
 		// set defaults
-		this.randomness = 0; // max possible random delta each iteration
 		this.iteration = 0;  // # of iterations
 
 		// create flies
@@ -25,26 +29,35 @@ class Fireflies {
 	}
 
 	copyFireflies() {
-		// create instanze
+		// create instance
 		var copies = new Fireflies(0, 0, 0, 0, 0);
 		
 		// transfer variables
-		copies.setRandomness( this.randomness );
+		copies.alpha = this.alpha;
+		copies.gamma = this.gamma;
+		copies.delta = this.delta;
 		
 		// transfer flies
 		this.flies.forEach( function(fly) {
-			// slice(0) creates a copy
-			// this does not perform a "deep" copy on included references!
-			copies.flies.push( {"x": fly.x, "y": fly.y} );
+			var newfly = {"x": fly.x, "y": fly.y};
+			copies.flies.push( newfly );
 		});
 		return copies;
 	}
 
 	setRandomness( randomness ) {
-		this.randomness = randomness;
+		this.alpha = randomness;
 	}
 
-	levy2D( func, gamma ) {
+	setAbsorbtion( absorbtion ) {
+		this.gamma = absorbtion;
+	}
+
+	setRandomnessReduction( reduction ) {
+		this.delta = reduction;
+	}
+
+	act( func ) {
 		this.updateLightIntesity(func);
 
 		var copies = this.copyFireflies();
@@ -59,23 +72,13 @@ class Fireflies {
 			for (var i2 = 0; i2 < this.flies.length; i2++) {
 				var other = this.flies[i2];
 				if (other.intensity > fly.intensity) {
-					var distance = distanceApprox(fly, other);
-					//var itensity = fly.intensity / Math.pow(r,2);
-					var visiblelight = fly.intensity * Math.exp(-gamma * distance);
-					//console.log("visiblelight: " + visiblelight);
+					var r = distanceApprox(fly, other);
+					var beta0 = 1; // source: Matlab code by  Xin-She Yang
+					var beta = beta0 * Math.exp(-this.gamma * r);
 
-					//fly.x = fly.x + ((other.x - fly.x) * visiblelight);
-					//fly.y = fly.y + ((other.y - fly.y) * visiblelight);
-					newstate.x = fly.x + ((other.x - fly.x) * visiblelight);
-					newstate.y = fly.y + ((other.y - fly.y) * visiblelight);
-
-					var deltax = ((other.x - fly.x) * visiblelight);
-					//console.log(i1 + " zog es zu " + i2 + " light:" + visiblelight*10000);
-				} else {
-					var randomx = (Math.random() * this.randomness*2) - this.randomness;
-					var randomy = (Math.random() * this.randomness*2) - this.randomness;
-					newstate.x = newstate.x + randomx;
-					newstate.y = newstate.y + randomy;
+					//console.log( this.gamma );
+					newstate.x = fly.x * (1 - beta) + other.x * beta + this.alpha * (Math.random() - 0.5);
+					newstate.y = fly.y * (1 - beta) + other.y * beta + this.alpha * (Math.random() - 0.5);
 				}
 			}
 		}
