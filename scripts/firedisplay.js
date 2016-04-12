@@ -53,7 +53,7 @@ class FireDisplay {
 	
 	generateHeightMap( func, minval, maxval, gradient ) {
 		if (!gradient) {
-			gradient = FireDisplay.toBWGradient;
+			gradient = FireDisplay.toGrayGradient;
 		}
 
 		var imageData = this.ctx.getImageData(0,0,this.c.width, this.c.height);
@@ -64,9 +64,7 @@ class FireDisplay {
 			x = this.CanvasYtoY(x);
 			y = this.CanvasYtoY(y);
 
-			var avg = (func(x,y) + minval) / (maxval - minval);
-
-			//console.log(x,y,func(x,y),avg);
+			var avg = (func(x,y) - minval) / (maxval - minval);
 
 			var color = gradient(avg);
 
@@ -86,8 +84,8 @@ class FireDisplay {
 		this.y2 = y2;
 	}
 	
-	static toBWGradient(a) {
-		var a = a * 145 + 110;
+	static toGrayGradient(a) {
+		var a = a * 185 + 70;
 		return [a, a, a];
 	}
 
