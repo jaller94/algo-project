@@ -1,9 +1,11 @@
-// Create and populate a data table.
+'use strict';
+
+// Create and populate a data table
 const data_mountain = new vis.DataSet();
 const data_wave = new vis.DataSet();
-// create some nice looking data with sin/cos
+// Create some nice looking data with sin/cos
 let counter = 0;
-const steps = 50;  // number of datapoints will be steps*steps
+const steps = 50;  // Amount of data points will be steps*steps
 const axisMin = -5;
 const axisMax = 5;
 const axisStep = (axisMax - axisMin) / steps;
@@ -21,7 +23,7 @@ for (let x = axisMin; x < axisMax; x+=axisStep) {
 	}
 }
 
-// specify options
+// Specify options for the vis.js lib
 const options = {
 	width:  '500px',
 	height: '500px',
@@ -33,7 +35,7 @@ const options = {
 	verticalRatio: 0.5
 };
 
-// Instantiate our graph object.
+// Instantiate our graph object
 const container_mountain = document.getElementById('visualization_mountain');
 const graph3d_mountain = new vis.Graph3d(container_mountain, data_mountain, options);
 

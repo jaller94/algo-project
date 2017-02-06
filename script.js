@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //document.getElementById("mytext0").value = JSON.stringify(fireflies);
 
