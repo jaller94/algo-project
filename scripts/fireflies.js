@@ -2,8 +2,8 @@
 
 function distanceApprox(p1,p2){
 	// Approximation by using octagons approach
-	var x = p2.x-p1.x;
-	var y = p2.y-p1.y;
+	const x = p2.x-p1.x;
+	const y = p2.y-p1.y;
 	return 1.426776695*Math.min(0.7071067812*(Math.abs(x)+Math.abs(y)), Math.max (Math.abs(x), Math.abs(y)));	
 }
 
@@ -19,10 +19,10 @@ class Fireflies {
 
 		// create flies
 		this.flies = [];
-		for (var i = 0; i < amount; i++) {
-			var x = (Math.random() * (x2-x1)) + x1;
-			var y = (Math.random() * (y2-y1)) + y1;
-			var fly = {"x": x, "y": y};
+		for (let i = 0; i < amount; i++) {
+			const x = (Math.random() * (x2-x1)) + x1;
+			const y = (Math.random() * (y2-y1)) + y1;
+			const fly = {"x": x, "y": y};
 			this.flies.push( fly );
 			console.log("pushed Fly");
 		}
@@ -30,7 +30,7 @@ class Fireflies {
 
 	copyFireflies() {
 		// create instance
-		var copies = new Fireflies(0, 0, 0, 0, 0);
+		const copies = new Fireflies(0, 0, 0, 0, 0);
 		
 		// transfer variables
 		copies.alpha = this.alpha;
@@ -39,7 +39,7 @@ class Fireflies {
 		
 		// transfer flies
 		this.flies.forEach( function(fly) {
-			var newfly = {"x": fly.x, "y": fly.y};
+			const newfly = {"x": fly.x, "y": fly.y};
 			copies.flies.push( newfly );
 		});
 		return copies;
@@ -60,21 +60,21 @@ class Fireflies {
 	act( func ) {
 		this.updateLightIntesity(func);
 
-		var copies = this.copyFireflies();
+		const copies = this.copyFireflies();
 		copies.iteration = copies.iteration + 1;
 
 		//fireflies.forEach( function(fly) {
 			//fireflies.forEach( function(other) {
 				//if (fly != other) {
-		for (var i1 = 0; i1 < this.flies.length; i1++) {
-			var fly = this.flies[i1];
-			var newstate = copies.flies[i1];
-			for (var i2 = 0; i2 < this.flies.length; i2++) {
-				var other = this.flies[i2];
+		for (let i1 = 0; i1 < this.flies.length; i1++) {
+			const fly = this.flies[i1];
+			const newstate = copies.flies[i1];
+			for (let i2 = 0; i2 < this.flies.length; i2++) {
+				const other = this.flies[i2];
 				if (other.intensity > fly.intensity) {
-					var r = distanceApprox(fly, other);
-					var beta0 = 1; // source: Matlab code by  Xin-She Yang
-					var beta = beta0 * Math.exp(-this.gamma * r);
+					const r = distanceApprox(fly, other);
+					const beta0 = 1; // source: Matlab code by Xin-She Yang
+					const beta = beta0 * Math.exp(-this.gamma * r);
 
 					//console.log( this.gamma );
 					newstate.x = fly.x * (1 - beta) + other.x * beta + this.alpha * (Math.random() - 0.5);
@@ -106,8 +106,8 @@ class Fireflies {
 	}
 
 	getBest( func ) {
-		var x,y
-		var best = 0;
+		let x, y;
+		let best = 0;
 
 		this.updateLightIntesity( func );
 
@@ -124,15 +124,15 @@ class Fireflies {
 	getSortet( func ) {
 		this.updateLightIntesity( func );
 
-		var sortable = [];
+		const sortable = [];
 		this.flies.forEach( function(fly) {
 			sortable.push([fly, fly.intensity]);
 		});
 
 		sortable.sort(function(a, b) {return b[1] - a[1]});
 
-		var result = [];
-		for (var i in sortable) {
+		const result = [];
+		for (let i in sortable) {
 			result.push( sortable[i][0] );
 		}
 		return result;

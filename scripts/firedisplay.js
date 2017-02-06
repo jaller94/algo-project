@@ -16,8 +16,8 @@ class FireDisplay {
 
 	drawFirefly( x, y ) {
 		//console.log("drawFirefly");
-		var screen_x = this.XtoCanvasX( x );
-		var screen_y = this.YtoCanvasY( y );
+		const screen_x = this.XtoCanvasX( x );
+		const screen_y = this.YtoCanvasY( y );
 		
 		this.ctx.fillStyle = "rgba(255,0,255,1)";
 		this.ctx.fillRect( screen_x-1, screen_y-1, 3, 3 );
@@ -25,7 +25,7 @@ class FireDisplay {
 
 	drawFireflies( fireflies ) {
 		//console.log("drawFireflies");
-		var self = this;
+		const self = this;
 		
 		fireflies.flies.forEach( function(fly) { 
 			self.drawFirefly(fly["x"], fly["y"]);
@@ -33,10 +33,10 @@ class FireDisplay {
 	}
 
 	drawGrid( ) {
-		var x_grid = 10;
-		var x_size = this.c.width / x_grid;
+		const x_grid = 10;
+		const x_size = this.c.width / x_grid;
 		this.ctx.beginPath();
-		for (var i = 0; i <= x_grid; i++) {
+		for (let i = 0; i <= x_grid; i++) {
 			// vertical lines
 			this.ctx.moveTo(i * x_size, 0);
 			this.ctx.lineTo(i * x_size, x_size * x_grid);
@@ -56,17 +56,17 @@ class FireDisplay {
 			gradient = FireDisplay.toGrayGradient;
 		}
 
-		var imageData = this.ctx.getImageData(0,0,this.c.width, this.c.height);
-		var data = imageData.data;
-		for (var i = 0; i < data.length; i += 4) {
-			var x = (i/4) % this.c.width;
-			var y = Math.floor((i/4) / this.c.width);
+		const imageData = this.ctx.getImageData(0,0,this.c.width, this.c.height);
+		const data = imageData.data;
+		for (let i = 0; i < data.length; i += 4) {
+			let x = (i/4) % this.c.width;
+			let y = Math.floor((i/4) / this.c.width);
 			x = this.CanvasYtoY(x);
 			y = this.CanvasYtoY(y);
 
-			var avg = (func(x,y) - minval) / (maxval - minval);
+			const avg = (func(x,y) - minval) / (maxval - minval);
 
-			var color = gradient(avg);
+			const color = gradient(avg);
 
 			data[i]	    = color[0]; // red
 			data[i + 1] = color[1]; // green
@@ -85,53 +85,53 @@ class FireDisplay {
 	}
 	
 	static toGrayGradient(a) {
-		var a = a * 185 + 70;
+		a = a * 185 + 70;
 		return [a, a, a];
 	}
 
 	static toRGBGradient(a) {
 		if (a < 0.25) {
 			//blue to cyan
-			var g = (a*4*255);
+			const g = (a*4*255);
 			return [0, g, 255];
 			
 		} else if (a < 0.5) {
 			//cyan to green
 			a = a - 0.25;
-			var b = 255-(a*4*255);
+			const b = 255-(a*4*255);
 			return [0, 255, b];
 
 		} else if (a < 0.75) {		
 			//green to yellow
 			a = a - 0.5;
-			var r = (a*4*255);
+			const r = (a*4*255);
 			return [r, 255, 0];
 
 		} else {		
 			//yellow to red
 			a = a - 0.75;
-			var g = 255-(a*4*255);
+			const g = 255-(a*4*255);
 			return [255, g, 0];
 		}
 	}
 
 	XtoCanvasX( x ) {
-		var all = this.x2 - this.x1;
+		const all = this.x2 - this.x1;
 		return ((x - this.x1) / all) * this.c.width;
 	}
 
 	YtoCanvasY( y ) {
-		var all = this.y2 - this.y1;
+		const all = this.y2 - this.y1;
 		return ((y - this.y1) / all) * this.c.height;
 	}
 
 	CanvasXtoX( x ) {
-		var all = this.x2 - this.x1;
+		const all = this.x2 - this.x1;
 		return (x/this.c.width) * all + this.x1;
 	}
 
 	CanvasYtoY( y ) {
-		var all = this.y2 - this.y1;
+		const all = this.y2 - this.y1;
 		return (y/this.c.height) * all + this.y1;
 	}
 }

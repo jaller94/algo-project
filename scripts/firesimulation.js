@@ -1,7 +1,7 @@
 'use strict';
 
 function createButton( label, root ) {
-	var btn = $('<button type="button">' + label + '</button>')
+	const btn = $('<button type="button">' + label + '</button>')
 		.addClass('btn btn-default')
 		.appendTo( $(root) );
 	return btn[0];
@@ -42,10 +42,10 @@ class FireSimulation {
 	}
 
 	alertBest( ) {
-		var best = this.fireflies.getBest( this.func );
-		var x = best.x.toFixed(3);
-		var y = best.y.toFixed(3);
-		var value = best['value'].toFixed(3);
+		const best = this.fireflies.getBest( this.func );
+		const x = best.x.toFixed(3);
+		const y = best.y.toFixed(3);
+		const value = best['value'].toFixed(3);
 		alert( 'x: '+x+'; y: '+y+'; f(): '+value );
 	}
 
@@ -80,7 +80,7 @@ class FireSimulation {
 	}
 
 	printBest( ) {
-		var best = this.fireflies.getBest( this.func );
+		const best = this.fireflies.getBest( this.func );
 		console.log( best );
 	}
 
@@ -101,10 +101,10 @@ class FireSimulation {
 
 	setZoom( zoom ) {
 		this.zoom = zoom;
-		var x1 = -(this.zoom / 2) + this.xoffset;
-		var y1 = -(this.zoom / 2) + this.yoffset;
-		var x2 =  (this.zoom / 2) + this.xoffset;
-		var y2 =  (this.zoom / 2) + this.yoffset;
+		const x1 = -(this.zoom / 2) + this.xoffset;
+		const y1 = -(this.zoom / 2) + this.yoffset;
+		const x2 =  (this.zoom / 2) + this.xoffset;
+		const y2 =  (this.zoom / 2) + this.yoffset;
 		console.log('draw with ' + this.zoom);
 		this.display.setViewport(x1, y1, x2, y2);
 		this.draw();
@@ -112,39 +112,39 @@ class FireSimulation {
 
 	static insertIntoHTML( root ) {
 		/// Create main wrappers
-		var wrapper = document.createElement('div');
+		const wrapper = document.createElement('div');
 		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-6');
-		var wrapper2 = document.createElement('div');
+		const wrapper2 = document.createElement('div');
 		$(wrapper2).addClass('col-xs-6 col-sm-3 col-sm-3');
-		var wrapper_canvas = document.createElement('div');
+		const wrapper_canvas = document.createElement('div');
 
 		/// Create section wrappers
 		$(wrapper_canvas).addClass('canvas-wrapper')
 			.appendTo( $(wrapper) );
-		var wrapper_buttons = document.createElement('div');
+		const wrapper_buttons = document.createElement('div');
 		$(wrapper_buttons).addClass('btn-group form-group')
 			.appendTo( $(wrapper) );
-		var wrapper_layers = $('<div><h3>Layers</h3></div>')
+		const wrapper_layers = $('<div><h3>Layers</h3></div>')
 		$(wrapper_layers).addClass('form-group')
 			.appendTo( $(wrapper2) );
-		var wrapper_params = $('<div><h3>Initialisation</h3></div>');
+		const wrapper_params = $('<div><h3>Initialisation</h3></div>');
 		$(wrapper_params).addClass('form-group')
 			.appendTo( $(wrapper2) );
 
-		var wrapper_amount = $('<div></div>');
+		const wrapper_amount = $('<div></div>');
 		$(wrapper_amount).addClass('form-group')
 			.appendTo( $(wrapper2) );
 		$('<label for="amount"># of fireflies:</label>').appendTo( $(wrapper_amount) );
 		$('<input type="text" class="form-control" id="amount">').appendTo( $(wrapper_amount) );
-		var wrapper_absorb = $('<div></div>');
+		const wrapper_absorb = $('<div></div>');
 		$(wrapper_absorb).addClass('form-group')
 			.appendTo( $(wrapper2) );
 		$('<label for="absorb">Absorption coefficient:</label>').appendTo( $(wrapper_absorb) );
 		$('<input type="text" class="form-control" id="absorb">').appendTo( $(wrapper_absorb) );
 
 		/// Create Canvas
-		var canvas_id = 'canvas' + $('canvas').length;
-		var canvas = $('<canvas></canvas>', {
+		const canvas_id = 'canvas' + $('canvas').length;
+		const canvas = $('<canvas></canvas>', {
 			id: canvas_id,
 			//class: 'embed-responsive-item'
 		}).attr({
@@ -156,19 +156,19 @@ class FireSimulation {
 		canvas.appendTo( $(wrapper_canvas) );
 
 		/// Create playback buttons
-		var button_reset = createButton('Reset', $(wrapper_buttons) );
+		const button_reset = createButton('Reset', $(wrapper_buttons) );
 
-		var button_next = createButton('Next', $(wrapper_buttons) );
+		const button_next = createButton('Next', $(wrapper_buttons) );
 
-		var button_best = createButton('Alert Best', $(wrapper_buttons) );
+		const button_best = createButton('Alert Best', $(wrapper_buttons) );
 
 		/// Layer Buttons
 		// Heightmap Layer
-		var label_heightmap = $('<label></label>')
+		const label_heightmap = $('<label></label>')
 			.addClass('checkbox-inline')
 			.appendTo( $(wrapper_layers) );
 
-		var checkbox_heightmap = $('<input type="checkbox" value="">')
+		const checkbox_heightmap = $('<input type="checkbox" value="">')
 			.appendTo( $(label_heightmap) );
 
 		$(label_heightmap).append('Heightmap');
@@ -178,7 +178,7 @@ class FireSimulation {
 		$(wrapper2).appendTo( $(root) );
 
 		/// Create a Firefly Simulation
-		var sim = new FireSimulation( func, canvas[0], 10 );
+		const sim = new FireSimulation( func, canvas[0], 10 );
 		canvas.simulation = sim;
 
 		/// Buttons for Playback
