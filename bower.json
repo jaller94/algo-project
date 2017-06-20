@@ -9,7 +9,7 @@
   "keywords": [
     "firefly-algorithm"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "private": true,
   "ignore": [
     "**/.*",
