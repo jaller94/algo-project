@@ -1,5 +1,9 @@
 'use strict';
 
+import $ from 'jquery';
+import FireDisplay from './FireDisplay.js';
+import Fireflies from './Fireflies.js';
+
 function createButton( label, root ) {
 	const btn = $('<button type="button">' + label + '</button>')
 		.addClass('btn btn-default')
@@ -7,7 +11,7 @@ function createButton( label, root ) {
 	return btn[0];
 }
 
-class FireSimulation {
+export default class FireSimulation {
 	constructor( func, canvas, amount ) {
 		this.func = func;
 		this.canvas = canvas;
@@ -71,7 +75,7 @@ class FireSimulation {
 		}
 		return 1.0;
 	}
-	
+
 	getRandomness( ) {
 		if (this.input_randomness) {
 			return this.input_randomness.value;
@@ -110,7 +114,7 @@ class FireSimulation {
 		this.draw();
 	}
 
-	static insertIntoHTML( root ) {
+	static insertIntoHTML( root, func ) {
 		/// Create main wrappers
 		const wrapper = document.createElement('div');
 		$(wrapper).addClass('col-xs-12 col-sm-6 col-sm-6');

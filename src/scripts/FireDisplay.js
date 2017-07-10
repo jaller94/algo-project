@@ -1,6 +1,6 @@
 'use strict';
 
-class FireDisplay {
+export default class FireDisplay {
 	constructor( canvas ) {
 		this.c = canvas;
 		this.ctx = canvas.getContext("2d");
@@ -9,7 +9,7 @@ class FireDisplay {
 		this.x2 = 5;
 		this.y2 = 5;
 	}
-	
+
 	clear( ) {
 		this.ctx.clearRect(0, 0, this.c.width, this.c.height);
 	}
@@ -18,7 +18,7 @@ class FireDisplay {
 		//console.log("drawFirefly");
 		const screen_x = this.XtoCanvasX( x );
 		const screen_y = this.YtoCanvasY( y );
-		
+
 		this.ctx.fillStyle = "rgba(255,0,255,1)";
 		this.ctx.fillRect( screen_x-1, screen_y-1, 3, 3 );
 	}
@@ -26,8 +26,8 @@ class FireDisplay {
 	drawFireflies( fireflies ) {
 		//console.log("drawFireflies");
 		const self = this;
-		
-		fireflies.flies.forEach( function(fly) { 
+
+		fireflies.flies.forEach( function(fly) {
 			self.drawFirefly(fly["x"], fly["y"]);
 		} );
 	}
@@ -50,7 +50,7 @@ class FireDisplay {
 	drawImage( image ) {
 		this.ctx.putImageData(image, 0, 0);
 	}
-	
+
 	generateHeightMap( func, minval, maxval, gradient ) {
 		if (!gradient) {
 			gradient = FireDisplay.toGrayGradient;
@@ -83,7 +83,7 @@ class FireDisplay {
 		this.y1 = y1;
 		this.y2 = y2;
 	}
-	
+
 	static toGrayGradient(a) {
 		a = a * 185 + 70;
 		return [a, a, a];
@@ -94,20 +94,20 @@ class FireDisplay {
 			//blue to cyan
 			const g = (a*4*255);
 			return [0, g, 255];
-			
+
 		} else if (a < 0.5) {
 			//cyan to green
 			a = a - 0.25;
 			const b = 255-(a*4*255);
 			return [0, 255, b];
 
-		} else if (a < 0.75) {		
+		} else if (a < 0.75) {
 			//green to yellow
 			a = a - 0.5;
 			const r = (a*4*255);
 			return [r, 255, 0];
 
-		} else {		
+		} else {
 			//yellow to red
 			a = a - 0.75;
 			const g = 255-(a*4*255);

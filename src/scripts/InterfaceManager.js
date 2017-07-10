@@ -1,5 +1,9 @@
 'use strict';
 
+import $ from 'jquery';
+import FireDisplay from './FireDisplay.js';
+import Fireflies from './Fireflies.js';
+
 var func1 = {
 	'viewport': [-2.5, -2.5, 2.5, 2.5],
 	'min': 0,
@@ -57,7 +61,7 @@ class InterfaceManager {
 		this.func = func1;
 		this.reset();
 	}
-	
+
 	loadExample2() {
 		this.func = func2;
 		this.reset();
@@ -99,7 +103,7 @@ class InterfaceManager {
 		}
 		return this.getDefaultAmount();
 	}
-	
+
 	getDefaultAmount() {
 		return 40;
 	}
@@ -111,11 +115,11 @@ class InterfaceManager {
 		}
 		return this.getDefaultGamma();
 	}
-	
+
 	getDefaultGamma( ) {
 		return 1.0;
 	}
-	
+
 	getRandomness( ) {
 		var input = this.input_randomness;
 		if (input && !isNaN(input.value) && input.value != '') {
@@ -123,7 +127,7 @@ class InterfaceManager {
 		}
 		return this.getDefaultRandomness();
 	}
-	
+
 	getDefaultRandomness( ) {
 		return 0.2;
 	}

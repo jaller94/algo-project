@@ -1,5 +1,7 @@
 'use strict';
 
+import vis from 'vis';
+
 // Create and populate a data table
 const data_mountain = new vis.DataSet();
 const data_wave = new vis.DataSet();

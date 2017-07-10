@@ -4,10 +4,10 @@ function distanceApprox(p1,p2){
 	// Approximation by using octagons approach
 	const x = p2.x-p1.x;
 	const y = p2.y-p1.y;
-	return 1.426776695*Math.min(0.7071067812*(Math.abs(x)+Math.abs(y)), Math.max (Math.abs(x), Math.abs(y)));	
+	return 1.426776695*Math.min(0.7071067812*(Math.abs(x)+Math.abs(y)), Math.max (Math.abs(x), Math.abs(y)));
 }
 
-class Fireflies {
+export default class Fireflies {
 	constructor( amount, x1, y1, x2, y2 ) {
 		this.alpha = 0.2;  // Randomness 0--1 (highly random)
 		this.gamma = 1.0;  // Absorption coefficient
@@ -31,12 +31,12 @@ class Fireflies {
 	copyFireflies() {
 		// create instance
 		const copies = new Fireflies(0, 0, 0, 0, 0);
-		
+
 		// transfer variables
 		copies.alpha = this.alpha;
 		copies.gamma = this.gamma;
 		copies.delta = this.delta;
-		
+
 		// transfer flies
 		this.flies.forEach( function(fly) {
 			const newfly = {"x": fly.x, "y": fly.y};
